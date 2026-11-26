@@ -52,6 +52,7 @@ for r in / /projects/ /career/ /it/ /it/projects/ /it/career/ /404.html; do
     --only-categories=performance,accessibility,best-practices,seo \
     --chrome-flags="--headless=new" --output=html --output-path="lh-$(echo $r | tr / _).html" --quiet
 done
+# Astro 7 runs the preview as a background server (pid in its output); `astro preview stop` stops it.
 npx astro preview stop && rm -rf dist/_vercel
 ```
 

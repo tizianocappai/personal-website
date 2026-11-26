@@ -24,8 +24,8 @@ npm run og-image # regenerates public/og.png (only after changing name or role; 
 - `src/layouts/Base.astro`: the shared HTML shell. From the page's `lang` and `route` key it renders `lang`,
   title, description, canonical URL, `hreflang` alternates (en, it, x-default), favicon, Open Graph and Twitter
   card meta (one shared image, `public/og.png`), the Vercel Web Analytics script (`/_vercel/insights/script.js`,
-  served by Vercel, the only client-side script) and the footer ("Last updated" with the build month, localized,
-  and the link to the same page in the other language). Pages can add tags to `<head>` with `slot="head"`
+  served by Vercel, the only client-side script) and the footer ("Last updated" with the month in
+  `src/data/site.ts`, localized, and the link to the same page in the other language). Pages can add tags to `<head>` with `slot="head"`
   (the homepage uses it for the JSON-LD `Person`). A page without a `route` (only the not-found page) gets
   `noindex` and no canonical, hreflang or language switch.
 - `src/pages/404.astro`: the single not-found page Vercel serves for any unknown URL, in English and Italian.
@@ -34,13 +34,24 @@ npm run og-image # regenerates public/og.png (only after changing name or role; 
 - `src/i18n/routes.ts`: route keys and their paths; `localizedPath(lang, key)` gives the URL in a language.
 - `src/i18n/ui.ts`: UI strings per language, typed.
 - `src/data/`: content kept separate from markup (`profile.ts` holds the contact links and the CV URL, `career.ts`
-  the Career page in both languages). Never add a phone number.
+  the Career page and `projects.ts` the Projects page in both languages, `site.ts` the `lastUpdated` month shown
+  in the footer). Never add a phone number.
+- `src/data/site.ts` `lastUpdated`: bump it (e.g. `"2026-11"`) when you edit content. The footer shows it, not
+  the deploy date, so a redeploy without content changes keeps the same "Last updated".
 - `public/tiziano-cappai-cv.pdf`: the single English CV, served at `/tiziano-cappai-cv.pdf` and linked from both
   homepages. To update it, replace the file keeping the name, after checking it has no phone number.
 - `src/styles/global.css`: the whole stylesheet, inlined into every page.
-- `tests/`: Vitest suite. `build.global-setup.ts` runs `astro build` once; the tests parse the HTML in `dist/` and
-  check what a visitor or search engine receives (title, description, `lang`, page under 15 KB, no phone number,
-  no client-side script other than Vercel Web Analytics, stylesheet rules, homepage content, canonical/hreflang and the language switch).
+- `tests/`: Vitest suite. `build.global-setup.ts` runs `astro build` once and `site.ts` reads the pages in `dist/`;
+  each test file checks what a visitor or search engine receives:
+  - `global.test.ts`: every page (title, description, `lang`, under 15 KB, no phone number, no JavaScript file, no
+    client-side script other than Vercel Web Analytics);
+  - `style.test.ts`: the stylesheet rules (system serif fonts, text width, dark mode, no animations, viewport);
+  - `home.test.ts`, `career.test.ts`, `projects.test.ts`: the content of each page;
+  - `cv-links.test.ts`: the CV PDF and the links to it;
+  - `seo.test.ts`: Open Graph, favicon, JSON-LD, `robots.txt` and the sitemap;
+  - `i18n.test.ts`: the Italian homepage, every page in both languages, canonical/hreflang, the language switch,
+    the localized "Last updated" and no language-based redirect;
+  - `not-found.test.ts`: the 404 page.
 
 ### Adding a page
 
