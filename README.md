@@ -1,6 +1,7 @@
 # personal-website
 
-Tiziano Cappai's personal site: text and links only, static Astro output, no client-side JavaScript.
+Tiziano Cappai's personal site: text and links only, static Astro output, no client-side JavaScript except
+Vercel Web Analytics (cookieless, no banner).
 Spec: issue #1.
 
 ## Commands
@@ -22,7 +23,8 @@ npm run og-image # regenerates public/og.png (only after changing name or role; 
 - `src/components/`: page templates shared by all languages.
 - `src/layouts/Base.astro`: the shared HTML shell. From the page's `lang` and `route` key it renders `lang`,
   title, description, canonical URL, `hreflang` alternates (en, it, x-default), favicon, Open Graph and Twitter
-  card meta (one shared image, `public/og.png`) and the footer ("Last updated" with the build month, localized,
+  card meta (one shared image, `public/og.png`), the Vercel Web Analytics script (`/_vercel/insights/script.js`,
+  served by Vercel, the only client-side script) and the footer ("Last updated" with the build month, localized,
   and the link to the same page in the other language). Pages can add tags to `<head>` with `slot="head"`
   (the homepage uses it for the JSON-LD `Person`). A page without a `route` (only the not-found page) gets
   `noindex` and no canonical, hreflang or language switch.
@@ -38,7 +40,7 @@ npm run og-image # regenerates public/og.png (only after changing name or role; 
 - `src/styles/global.css`: the whole stylesheet, inlined into every page.
 - `tests/`: Vitest suite. `build.global-setup.ts` runs `astro build` once; the tests parse the HTML in `dist/` and
   check what a visitor or search engine receives (title, description, `lang`, page under 15 KB, no phone number,
-  no client-side script, stylesheet rules, homepage content, canonical/hreflang and the language switch).
+  no client-side script other than Vercel Web Analytics, stylesheet rules, homepage content, canonical/hreflang and the language switch).
 
 ### Adding a page
 
@@ -108,5 +110,11 @@ settings need changing by hand.
    - every push to any other branch (and every pull request) gets its own preview URL.
 7. Check **Settings → Build and Deployment → Node.js Version** is `24.x` (matches `engines` in `package.json`).
 
-The custom domain (`tizianocappai.com`) and its DNS steps come with a later ticket; until then the site lives on
-`*.vercel.app`. Canonical and sitemap URLs already use `https://tizianocappai.com` (Astro `site`).
+Then follow [docs/launch.md](docs/launch.md): enable Vercel Web Analytics, attach `tizianocappai.com` (exact DNS
+records), optionally redirect `tizianocappai.it`, and submit the sitemap. Until the domain is attached the site lives
+on `*.vercel.app`; canonical and sitemap URLs already use `https://tizianocappai.com` (Astro `site`).
+
+## Quality pass
+
+Lighthouse mobile and W3C HTML validation results, and the commands to re-run them locally, are in
+[docs/quality-pass.md](docs/quality-pass.md).
