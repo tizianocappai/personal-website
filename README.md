@@ -78,6 +78,8 @@ list of strings to check, and what "done" means, is in issue #9.
 ## Deploying
 
 Vercel deploys every push to `main` to production; every other branch and pull request gets its own preview URL.
+GitHub Actions (`.github/workflows/ci.yml`) runs `npm test` on every push to `main` and every pull request; Vercel
+does not wait for it, so run `npm test` locally before pushing to `main`.
 One-time setup (Vercel import, Web Analytics, `tizianocappai.com` DNS, sitemap submission) is in
 [docs/launch.md](docs/launch.md). Until the domain is attached the site lives on `*.vercel.app`, but canonical and
 sitemap URLs already use `https://tizianocappai.com` (Astro `site`).

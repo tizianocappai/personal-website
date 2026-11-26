@@ -1,0 +1,29 @@
+# Runs the test suite (astro build + checks on every generated page) on every push to main and every pull request.
+# Vercel deploys independently and does not wait for this job: a red run on main means production may already be
+# serving the broken commit, so fix or revert it (docs/maintenance.md, "Tornare indietro").
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm test

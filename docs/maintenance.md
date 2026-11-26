@@ -8,7 +8,7 @@ Guida operativa per il sito già online. Il setup una tantum (import su Vercel, 
 ```sh
 git switch main && git pull
 # … modifiche …
-npm test                 # build + tutti i controlli: deve passare prima di ogni push
+npm test                 # build + tutti i controlli: deve passare prima di ogni push (la CI lo ripete)
 git commit -am "…"
 git push origin main     # Vercel pubblica in produzione in 1-2 minuti
 ```
@@ -22,9 +22,14 @@ Il deploy è automatico, non c'è nessun comando da lanciare.
 | `main`                         | deploy di **produzione** (URL pubblico e dominio)           |
 | qualsiasi altro branch o PR    | deploy di **preview** con un URL suo, commentato nella PR   |
 
-Vercel esegue `npm ci` e `npm run build` (da `vercel.json`) e pubblica `dist/`. **Non esegue i test**: non c'è CI
-su GitHub, quindi `npm test` va lanciato in locale prima del push. Un build che fallisce su Vercel non tocca la
-produzione: resta online l'ultimo deploy riuscito.
+Vercel esegue `npm ci` e `npm run build` (da `vercel.json`) e pubblica `dist/`. Un build che fallisce su Vercel non
+tocca la produzione: resta online l'ultimo deploy riuscito.
+
+I test li esegue la **CI su GitHub** (`.github/workflows/ci.yml`, tab **Actions**): `npm ci` e `npm test` a ogni
+push su `main` e a ogni PR, con la versione di Node di `.nvmrc`. Vercel però **non aspetta la CI**: un push su
+`main` va in produzione anche se i test falliscono. Per questo `npm test` va comunque lanciato in locale prima di
+pushare su `main`; se la CI diventa rossa su `main`, sistema o fai `git revert` subito. Con una PR invece vedi
+l'esito dei test prima del merge.
 
 ### Lavorare con una preview (consigliato per modifiche grandi)
 
@@ -99,8 +104,8 @@ npm test
 npm run build && npm run preview   # controllo a occhio in locale, poi `npx astro preview stop`
 ```
 
-Committa `package.json` **e** `package-lock.json` insieme (Vercel installa con `npm ci`, che usa il lockfile), apri
-la PR, controlla la preview, fai il merge.
+Committa `package.json` **e** `package-lock.json` insieme (Vercel e la CI installano con `npm ci`, che usa il
+lockfile), apri la PR, aspetta la CI verde, controlla la preview, fai il merge.
 
 ### Aggiornamenti major (es. Astro 7 → 8)
 
@@ -118,7 +123,7 @@ Uno alla volta, in un branch dedicato:
 
 La versione è dichiarata in tre posti, che devono restare allineati:
 
-- `.nvmrc` (`24`): quella usata in locale (`nvm use`);
+- `.nvmrc` (`24`): quella usata in locale (`nvm use`) e dalla CI;
 - `engines.node` in `package.json` (`>=24`);
 - Vercel → **Settings → Build and Deployment → Node.js Version** (`24.x`).
 
