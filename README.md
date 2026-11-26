@@ -31,7 +31,10 @@ npm run og-image # regenerates public/og.png (only after changing name or role; 
 - `public/`: `favicon.svg` (initials), `og.png` (made by `scripts/og-image.mjs`), `robots.txt`.
 - `src/i18n/routes.ts`: route keys and their paths; `localizedPath(lang, key)` gives the URL in a language.
 - `src/i18n/ui.ts`: UI strings per language, typed.
-- `src/data/`: content kept separate from markup (`profile.ts` holds the contact links). Never add a phone number.
+- `src/data/`: content kept separate from markup (`profile.ts` holds the contact links and the CV URL, `career.ts`
+  the Career page in both languages). Never add a phone number.
+- `public/tiziano-cappai-cv.pdf`: the single English CV, served at `/tiziano-cappai-cv.pdf` and linked from both
+  homepages. To update it, replace the file keeping the name, after checking it has no phone number.
 - `src/styles/global.css`: the whole stylesheet, inlined into every page.
 - `tests/`: Vitest suite. `build.global-setup.ts` runs `astro build` once; the tests parse the HTML in `dist/` and
   check what a visitor or search engine receives (title, description, `lang`, page under 15 KB, no phone number,
@@ -62,8 +65,26 @@ in the source). Job titles and technology names stay in English on purpose. Curr
 | Not-found page title | Page not found | Pagina non trovata |
 | Not-found page message | There is no page at this address. | Non c'è nessuna pagina a questo indirizzo. |
 | Not-found page link | Go to the homepage | Vai alla homepage |
+| Career title / heading | Career: Tiziano Cappai, Senior Frontend Developer / Career | Carriera: Tiziano Cappai, Senior Frontend Developer / Carriera |
+| Career description | Career of Tiziano Cappai, Senior Frontend Developer at Accenture in Rome: work experience, skills, education and languages. | Carriera di Tiziano Cappai, Senior Frontend Developer in Accenture a Roma: esperienze di lavoro, competenze, formazione e lingue. |
+| Career sections | Summary · Experience · Skills · Education · Languages | Profilo · Esperienza · Competenze · Formazione · Lingue |
+| Career content | summary, achievements, skill categories, degrees, languages | whole `it` block in `src/data/career.ts` (translated summary and achievements, "oggi" for Present, degree titles "Laurea triennale in Economia e gestione aziendale" and "Diploma di perito in Informatica") |
 
-Pages added later (Career, Projects) list their Italian strings here too.
+Projects page (`src/i18n/ui.ts` and `src/data/projects.ts`):
+
+| Where | English | Italian (draft) |
+| --- | --- | --- |
+| Projects title | Projects, Tiziano Cappai | Progetti, Tiziano Cappai |
+| Projects description | Projects by Tiziano Cappai, Senior Frontend Developer: a personal pension fund analysis app and client work by industry sector. | Progetti di Tiziano Cappai, Senior Frontend Developer: un'app personale per analizzare i fondi pensione e i lavori per clienti, per settore. |
+| Projects headings | Projects · Personal projects · Client work | Progetti · Progetti personali · Lavori per clienti |
+| Client work note | By industry sector: client names are under NDA. | Per settore: i nomi dei clienti sono coperti da NDA. |
+| Project links | Code · Live demo | Codice · Demo |
+| Sectors | National security · Luxury e-commerce · Public sector · Automotive · Fashion · Online betting, at K2 Play | Sicurezza nazionale · E-commerce di lusso · Pubblica amministrazione · Automotive · Moda · Scommesse online, presso K2 Play |
+| cagr-fund-pension description | see `src/data/projects.ts` | see `src/data/projects.ts` |
+
+Also to review in `src/data/projects.ts`, in both languages: the cagr-fund-pension description (drafted by an
+agent from the project README) and the stack on each client-work line (the CV gives stacks per role, not per
+sector, so each line uses the stack of the matching CV role).
 
 ## Deploying on Vercel (one-time setup, done by Tiziano)
 

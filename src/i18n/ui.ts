@@ -31,6 +31,28 @@ export interface UiStrings {
       email: string;
     };
   };
+  projects: {
+    title: string;
+    description: string;
+    heading: string;
+    personalHeading: string;
+    clientWorkHeading: string;
+    clientWorkNote: string;
+    repo: string;
+    demo: string;
+  };
+  career: {
+    title: string;
+    description: string;
+    heading: string;
+    sections: {
+      summary: string;
+      experience: string;
+      skills: string;
+      education: string;
+      languages: string;
+    };
+  };
   notFound: {
     title: string;
     message: string;
@@ -58,6 +80,30 @@ export const ui: Record<Lang, UiStrings> = {
         email: "Email",
       },
     },
+    projects: {
+      title: "Projects, Tiziano Cappai",
+      description:
+        "Projects by Tiziano Cappai, Senior Frontend Developer: a personal pension fund analysis app and client work by industry sector.",
+      heading: "Projects",
+      personalHeading: "Personal projects",
+      clientWorkHeading: "Client work",
+      clientWorkNote: "By industry sector: client names are under NDA.",
+      repo: "Code",
+      demo: "Live demo",
+    },
+    career: {
+      title: "Career: Tiziano Cappai, Senior Frontend Developer",
+      description:
+        "Career of Tiziano Cappai, Senior Frontend Developer at Accenture in Rome: work experience, skills, education and languages.",
+      heading: "Career",
+      sections: {
+        summary: "Summary",
+        experience: "Experience",
+        skills: "Skills",
+        education: "Education",
+        languages: "Languages",
+      },
+    },
     notFound: {
       title: "Page not found",
       message: "There is no page at this address.",
@@ -82,6 +128,30 @@ export const ui: Record<Lang, UiStrings> = {
         linkedin: "LinkedIn",
         github: "GitHub",
         email: "Email",
+      },
+    },
+    projects: {
+      title: "Progetti, Tiziano Cappai",
+      description:
+        "Progetti di Tiziano Cappai, Senior Frontend Developer: un'app personale per analizzare i fondi pensione e i lavori per clienti, per settore.",
+      heading: "Progetti",
+      personalHeading: "Progetti personali",
+      clientWorkHeading: "Lavori per clienti",
+      clientWorkNote: "Per settore: i nomi dei clienti sono coperti da NDA.",
+      repo: "Codice",
+      demo: "Demo",
+    },
+    career: {
+      title: "Carriera: Tiziano Cappai, Senior Frontend Developer",
+      description:
+        "Carriera di Tiziano Cappai, Senior Frontend Developer in Accenture a Roma: esperienze di lavoro, competenze, formazione e lingue.",
+      heading: "Carriera",
+      sections: {
+        summary: "Profilo",
+        experience: "Esperienza",
+        skills: "Competenze",
+        education: "Formazione",
+        languages: "Lingue",
       },
     },
     notFound: {
