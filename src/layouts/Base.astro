@@ -1,0 +1,29 @@
+---
+// Shared shell for every page. SEO extras (canonical, hreflang, OG) and the footer
+// (last updated, language switch) are added by later tickets (#3, #6).
+import "../styles/global.css";
+import type { Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+}
+
+const { lang, title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
