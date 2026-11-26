@@ -18,6 +18,11 @@ export function localizedPath(lang: Lang, route: RouteKey): string {
   return lang === defaultLang ? path : `/${lang}${path}`;
 }
 
+/** Absolute URL of a site-relative path, e.g. ("/it/", https://tizianocappai.com) -> "https://tizianocappai.com/it/". */
+export function absoluteUrl(path: string, site: URL | undefined): string {
+  return new URL(path, site).href;
+}
+
 /** hreflang alternates of a page: one per language plus x-default (the default language). */
 export function alternates(route: RouteKey): { hreflang: Lang | "x-default"; path: string }[] {
   return [

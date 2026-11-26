@@ -2,11 +2,11 @@
 // Built from src/i18n/routes.ts, so a new page is listed as soon as its route key exists.
 // The not-found page has no route key and is left out.
 import type { APIRoute } from "astro";
-import { alternates, localizedPath, routes, type RouteKey } from "../i18n/routes";
+import { absoluteUrl, alternates, localizedPath, routes, type RouteKey } from "../i18n/routes";
 import { languages } from "../i18n/ui";
 
 export const GET: APIRoute = ({ site }) => {
-  const url = (path: string) => new URL(path, site).href;
+  const url = (path: string) => absoluteUrl(path, site);
   const entries = (Object.keys(routes) as RouteKey[]).flatMap((route) =>
     languages.map((lang) => {
       const links = alternates(route)

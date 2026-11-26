@@ -27,12 +27,17 @@ export interface Degree {
   dates: string;
 }
 
+export interface SpokenLanguage {
+  language: string;
+  level: string;
+}
+
 export interface Career {
   summary: string;
   experience: Job[];
   skills: SkillGroup[];
   education: Degree[];
-  languages: { language: string; level: string }[];
+  languages: SpokenLanguage[];
 }
 
 const roles = {
@@ -43,7 +48,7 @@ const roles = {
 };
 
 const skillItems = {
-  languages: ["JavaScript (ES6+)", "TypeScript", "Python", "Java", "HTML5", "CSS3", "SCSS"],
+  programming: ["JavaScript (ES6+)", "TypeScript", "Python", "Java", "HTML5", "CSS3", "SCSS"],
   frameworks: ["React", "Next.js", "Angular", "Vue.js", "Nuxt"],
   state: ["Redux", "NgRx", "Vuex", "Pinia", "Zustand"],
   ui: ["Tailwind CSS", "Styled Components", "Material UI"],
@@ -109,7 +114,7 @@ export const career: Record<Lang, Career> = {
       },
     ],
     skills: [
-      { category: "Programming Languages", items: skillItems.languages },
+      { category: "Programming Languages", items: skillItems.programming },
       { category: "Frontend Frameworks", items: skillItems.frameworks },
       { category: "State Management", items: skillItems.state },
       { category: "UI and Styling", items: [...skillItems.ui, "Responsive Design"] },
@@ -195,7 +200,7 @@ export const career: Record<Lang, Career> = {
       },
     ],
     skills: [
-      { category: "Linguaggi di programmazione", items: skillItems.languages },
+      { category: "Linguaggi di programmazione", items: skillItems.programming },
       { category: "Framework frontend", items: skillItems.frameworks },
       { category: "Gestione dello stato", items: skillItems.state },
       { category: "UI e stile", items: [...skillItems.ui, "Responsive design"] },

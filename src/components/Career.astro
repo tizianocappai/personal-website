@@ -10,18 +10,18 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = ui[lang].career;
-const c = career[lang];
+const content = career[lang];
 ---
 
 <Base lang={lang} route="career" title={t.title} description={t.description}>
   <h1>{t.heading}</h1>
 
   <h2>{t.sections.summary}</h2>
-  <p>{c.summary}</p>
+  <p>{content.summary}</p>
 
   <h2>{t.sections.experience}</h2>
   {
-    c.experience.map((job) => (
+    content.experience.map((job) => (
       <section>
         <h3>{job.role}</h3>
         <p>
@@ -39,7 +39,7 @@ const c = career[lang];
   <h2>{t.sections.skills}</h2>
   <ul>
     {
-      c.skills.map((group) => (
+      content.skills.map((group) => (
         <li>
           {group.category}: {group.items.join(", ")}
         </li>
@@ -50,7 +50,7 @@ const c = career[lang];
   <h2>{t.sections.education}</h2>
   <ul>
     {
-      c.education.map((d) => (
+      content.education.map((d) => (
         <li>
           {d.title}, {d.school}, {d.location}, {d.dates}
         </li>
@@ -61,7 +61,7 @@ const c = career[lang];
   <h2>{t.sections.languages}</h2>
   <ul>
     {
-      c.languages.map((l) => (
+      content.languages.map((l) => (
         <li>
           {l.language}: {l.level}
         </li>
