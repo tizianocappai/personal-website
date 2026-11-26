@@ -13,6 +13,8 @@ export interface UiStrings {
   languageName: string;
   /** BCP 47 locale used to format dates. */
   locale: string;
+  /** Open Graph locale (language_TERRITORY). */
+  ogLocale: string;
   footer: {
     lastUpdated: string;
   };
@@ -29,12 +31,18 @@ export interface UiStrings {
       email: string;
     };
   };
+  notFound: {
+    title: string;
+    message: string;
+    backHome: string;
+  };
 }
 
 export const ui: Record<Lang, UiStrings> = {
   en: {
     languageName: "English",
     locale: "en-GB",
+    ogLocale: "en_GB",
     footer: { lastUpdated: "Last updated" },
     home: {
       title: "Tiziano Cappai, Senior Frontend Developer",
@@ -50,11 +58,17 @@ export const ui: Record<Lang, UiStrings> = {
         email: "Email",
       },
     },
+    notFound: {
+      title: "Page not found",
+      message: "There is no page at this address.",
+      backHome: "Go to the homepage",
+    },
   },
   // REVIEW (Tiziano): agent-drafted Italian copy.
   it: {
     languageName: "Italiano",
     locale: "it-IT",
+    ogLocale: "it_IT",
     footer: { lastUpdated: "Ultimo aggiornamento" },
     home: {
       title: "Tiziano Cappai, Senior Frontend Developer",
@@ -69,6 +83,11 @@ export const ui: Record<Lang, UiStrings> = {
         github: "GitHub",
         email: "Email",
       },
+    },
+    notFound: {
+      title: "Pagina non trovata",
+      message: "Non c'è nessuna pagina a questo indirizzo.",
+      backHome: "Vai alla homepage",
     },
   },
 };

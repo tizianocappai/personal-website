@@ -12,6 +12,7 @@ npm install
 npm run dev      # local dev server at http://localhost:4321
 npm run build    # static site in dist/
 npm test         # builds the site once, then checks every generated page
+npm run og-image # regenerates public/og.png (only after changing name or role; commit the PNG)
 ```
 
 ## How it is organised
@@ -20,8 +21,14 @@ npm test         # builds the site once, then checks every generated page
   No redirect based on the browser language: the URL you open is the page you get.
 - `src/components/`: page templates shared by all languages.
 - `src/layouts/Base.astro`: the shared HTML shell. From the page's `lang` and `route` key it renders `lang`,
-  title, description, canonical URL, `hreflang` alternates (en, it, x-default) and the footer ("Last updated"
-  with the build month, localized, and the link to the same page in the other language).
+  title, description, canonical URL, `hreflang` alternates (en, it, x-default), favicon, Open Graph and Twitter
+  card meta (one shared image, `public/og.png`) and the footer ("Last updated" with the build month, localized,
+  and the link to the same page in the other language). Pages can add tags to `<head>` with `slot="head"`
+  (the homepage uses it for the JSON-LD `Person`). A page without a `route` (only the not-found page) gets
+  `noindex` and no canonical, hreflang or language switch.
+- `src/pages/404.astro`: the single not-found page Vercel serves for any unknown URL, in English and Italian.
+- `src/pages/sitemap.xml.ts`: `/sitemap.xml`, generated from every route key in every language.
+- `public/`: `favicon.svg` (initials), `og.png` (made by `scripts/og-image.mjs`), `robots.txt`.
 - `src/i18n/routes.ts`: route keys and their paths; `localizedPath(lang, key)` gives the URL in a language.
 - `src/i18n/ui.ts`: UI strings per language, typed.
 - `src/data/`: content kept separate from markup (`profile.ts` holds the contact links). Never add a phone number.
@@ -37,8 +44,8 @@ npm test         # builds the site once, then checks every generated page
 3. Write one shared template in `src/components/` that renders `<Base lang={lang} route="career" title=… description=…>`.
 4. Create `src/pages/career.astro` and `src/pages/it/career.astro`, each rendering the template with its `lang`.
 
-The tests then check its canonical, hreflang and language-switch link automatically, and fail if one language
-is missing.
+The tests then check its canonical, hreflang, language-switch link, Open Graph meta, favicon and sitemap entry
+automatically, and fail if one language is missing.
 
 ## Italian copy to review
 
@@ -52,8 +59,11 @@ in the source). Job titles and technology names stay in English on purpose. Curr
 | Homepage links | Projects · Career · CV (PDF) | Progetti · Carriera · CV (PDF, in inglese) |
 | Footer | Last updated | Ultimo aggiornamento |
 | Language switch label | English | Italiano |
+| Not-found page title | Page not found | Pagina non trovata |
+| Not-found page message | There is no page at this address. | Non c'è nessuna pagina a questo indirizzo. |
+| Not-found page link | Go to the homepage | Vai alla homepage |
 
-Pages added later (Career, Projects, not-found) list their Italian strings here too.
+Pages added later (Career, Projects) list their Italian strings here too.
 
 ## Deploying on Vercel (one-time setup, done by Tiziano)
 

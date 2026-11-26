@@ -27,7 +27,10 @@ describe("Italian homepage", () => {
 });
 
 const site = "https://tizianocappai.com";
-const pages = allPages().filter((p) => p.route.endsWith("/"));
+const isNoindex = (p: ReturnType<typeof allPages>[number]) =>
+  p.doc.querySelector('meta[name="robots"]')?.getAttribute("content")?.includes("noindex") ?? false;
+// Every page with its own URL; the not-found page is checked separately (tests/not-found.test.ts).
+const pages = allPages().filter((p) => !isNoindex(p));
 const builtRoutes = new Set(allPages().map((p) => p.route));
 const routeOf = (url: string | undefined) => (url?.startsWith(site) ? url.slice(site.length) : undefined);
 const alternate = (p: (typeof pages)[number], lang: string) =>
@@ -36,6 +39,10 @@ const langOf = (route: string) => (route.startsWith("/it/") ? "it" : "en");
 const otherLang = (lang: string) => (lang === "it" ? "en" : "it");
 
 describe("site pairs", () => {
+  it("keeps only the not-found page out of the index", () => {
+    expect(allPages().filter(isNoindex).map((p) => p.route)).toEqual(["/404.html"]);
+  });
+
   it("builds every English page in Italian too, and vice versa", () => {
     const en = pages.filter((p) => langOf(p.route) === "en").map((p) => p.route);
     const it_ = pages.filter((p) => langOf(p.route) === "it").map((p) => p.route.slice("/it".length));

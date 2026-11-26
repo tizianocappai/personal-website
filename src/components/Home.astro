@@ -4,6 +4,7 @@
 import Base from "../layouts/Base.astro";
 import { profile } from "../data/profile";
 import { ui, type Lang } from "../i18n/ui";
+import { localizedPath } from "../i18n/routes";
 
 interface Props {
   lang: Lang;
@@ -11,9 +12,22 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = ui[lang].home;
+// JSON-LD Person: lets search engines tie the site, LinkedIn and GitHub to one entity.
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.jobTitle,
+  url: new URL(localizedPath(lang, "home"), Astro.site).href,
+  worksFor: { "@type": "Organization", name: profile.employer },
+  address: { "@type": "PostalAddress", addressLocality: profile.city, addressCountry: profile.country },
+  email: `mailto:${profile.email}`,
+  sameAs: [profile.linkedin, profile.github],
+};
 ---
 
 <Base lang={lang} route="home" title={t.title} description={t.description}>
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(person)} />
   <h1>{t.title}</h1>
   <p>{t.intro}</p>
   <ul>

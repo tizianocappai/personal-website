@@ -9,9 +9,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "og-image": "node scripts/og-image.mjs"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "astro": "^7.4.13",
     "node-html-parser": "^9.0.7",
     "vitest": "^5.1.2"
