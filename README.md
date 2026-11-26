@@ -53,7 +53,23 @@ in the source). Job titles and technology names stay in English on purpose. Curr
 | Footer | Last updated | Ultimo aggiornamento |
 | Language switch label | English | Italiano |
 
-Pages added later (Career, Projects, not-found) list their Italian strings here too.
+Projects page (`src/i18n/ui.ts` and `src/data/projects.ts`):
+
+| Where | English | Italian (draft) |
+| --- | --- | --- |
+| Projects title | Projects, Tiziano Cappai | Progetti, Tiziano Cappai |
+| Projects description | Projects by Tiziano Cappai, Senior Frontend Developer: a personal pension fund analysis app and client work by industry sector. | Progetti di Tiziano Cappai, Senior Frontend Developer: un'app personale per analizzare i fondi pensione e i lavori per clienti, per settore. |
+| Projects headings | Projects · Personal projects · Client work | Progetti · Progetti personali · Lavori per clienti |
+| Client work note | By industry sector: client names are under NDA. | Per settore: i nomi dei clienti sono coperti da NDA. |
+| Project links | Code · Live demo | Codice · Demo |
+| Sectors | National security · Luxury e-commerce · Public sector · Automotive · Fashion · Online betting, at K2 Play | Sicurezza nazionale · E-commerce di lusso · Pubblica amministrazione · Automotive · Moda · Scommesse online, presso K2 Play |
+| cagr-fund-pension description | see `src/data/projects.ts` | see `src/data/projects.ts` |
+
+Also to review in `src/data/projects.ts`, in both languages: the cagr-fund-pension description (drafted by an
+agent from the project README) and the stack on each client-work line (the CV gives stacks per role, not per
+sector, so each line uses the stack of the matching CV role).
+
+Pages added later (Career, not-found) list their Italian strings here too.
 
 ## Deploying on Vercel (one-time setup, done by Tiziano)
 

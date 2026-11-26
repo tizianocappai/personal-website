@@ -1,0 +1,39 @@
+---
+// Projects page, shared by every language. Content comes from src/data/projects.ts.
+import Base from "../layouts/Base.astro";
+import { projects } from "../data/projects";
+import { ui, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].projects;
+const { personal, clientWork } = projects[lang];
+---
+
+<Base lang={lang} route="projects" title={t.title} description={t.description}>
+  <h1>{t.heading}</h1>
+  <section id="personal-projects">
+    <h2>{t.personalHeading}</h2>
+    {
+      personal.map((p) => (
+        <article>
+          <h3>{p.name}</h3>
+          <p>{p.description}</p>
+          <p>
+            <a href={p.repo}>{t.repo}</a> · <a href={p.demo}>{t.demo}</a>
+          </p>
+        </article>
+      ))
+    }
+  </section>
+  <section id="client-work">
+    <h2>{t.clientWorkHeading}</h2>
+    <p>{t.clientWorkNote}</p>
+    <ul>
+      {clientWork.map((w) => <li>{w.sector} · {w.role} · {w.stack}</li>)}
+    </ul>
+  </section>
+</Base>

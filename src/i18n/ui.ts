@@ -29,6 +29,16 @@ export interface UiStrings {
       email: string;
     };
   };
+  projects: {
+    title: string;
+    description: string;
+    heading: string;
+    personalHeading: string;
+    clientWorkHeading: string;
+    clientWorkNote: string;
+    repo: string;
+    demo: string;
+  };
 }
 
 export const ui: Record<Lang, UiStrings> = {
@@ -50,6 +60,17 @@ export const ui: Record<Lang, UiStrings> = {
         email: "Email",
       },
     },
+    projects: {
+      title: "Projects, Tiziano Cappai",
+      description:
+        "Projects by Tiziano Cappai, Senior Frontend Developer: a personal pension fund analysis app and client work by industry sector.",
+      heading: "Projects",
+      personalHeading: "Personal projects",
+      clientWorkHeading: "Client work",
+      clientWorkNote: "By industry sector: client names are under NDA.",
+      repo: "Code",
+      demo: "Live demo",
+    },
   },
   // REVIEW (Tiziano): agent-drafted Italian copy.
   it: {
@@ -69,6 +90,17 @@ export const ui: Record<Lang, UiStrings> = {
         github: "GitHub",
         email: "Email",
       },
+    },
+    projects: {
+      title: "Progetti, Tiziano Cappai",
+      description:
+        "Progetti di Tiziano Cappai, Senior Frontend Developer: un'app personale per analizzare i fondi pensione e i lavori per clienti, per settore.",
+      heading: "Progetti",
+      personalHeading: "Progetti personali",
+      clientWorkHeading: "Lavori per clienti",
+      clientWorkNote: "Per settore: i nomi dei clienti sono coperti da NDA.",
+      repo: "Codice",
+      demo: "Demo",
     },
   },
 };

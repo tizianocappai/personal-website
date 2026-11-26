@@ -1,9 +1,10 @@
 ---
-// Homepage-index, shared by every language. Projects, Career and CV become links
-// when their pages land (#4, #5); until then they are plain text.
+// Homepage-index, shared by every language. Career and CV become links
+// when their pages land (#4); until then they are plain text.
 import Base from "../layouts/Base.astro";
 import { profile } from "../data/profile";
 import { ui, type Lang } from "../i18n/ui";
+import { localizedPath } from "../i18n/routes";
 
 interface Props {
   lang: Lang;
@@ -17,7 +18,7 @@ const t = ui[lang].home;
   <h1>{t.title}</h1>
   <p>{t.intro}</p>
   <ul>
-    <li>{t.links.projects}</li>
+    <li><a href={localizedPath(lang, "projects")}>{t.links.projects}</a></li>
     <li>{t.links.career}</li>
     <li>{t.links.cv}</li>
     <li><a href={profile.linkedin}>{t.links.linkedin}</a></li>

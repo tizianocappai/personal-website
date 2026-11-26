@@ -21,7 +21,10 @@ describe("Italian homepage", () => {
 
   it("links to the same contacts as the English homepage", () => {
     const hrefs = (route: string) =>
-      page(route).doc.querySelectorAll("main a").map((a) => a.getAttribute("href"));
+      page(route)
+        .doc.querySelectorAll("main a")
+        .map((a) => a.getAttribute("href"))
+        .filter((href) => !href?.startsWith("/"));
     expect(hrefs("/it/")).toEqual(hrefs("/"));
   });
 });
