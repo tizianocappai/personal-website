@@ -1,6 +1,10 @@
 // Bilingual site: English at the root, Italian under /it/, linked to each other on every page.
 import { describe, expect, it } from "vitest";
 import { allPages, page } from "./site";
+import { siteData } from "../src/data/site";
+
+const monthsEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const monthsIt = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
 
 describe("Italian homepage", () => {
   const home = page("/it/");
@@ -87,13 +91,14 @@ describe.each(pages.map((p) => [p.route, p] as const))("page %s", (route, p) => 
     expect(links[0].text.trim()).toBe(target === "it" ? "Italiano" : "English");
   });
 
-  it("shows when the site was last updated, in the page's language", () => {
+  it("shows when the content was last updated (siteData.lastUpdated), in the page's language", () => {
     const footer = p.doc.querySelector("footer")?.text ?? "";
-    const pattern =
+    const [year, month] = siteData.lastUpdated.split("-").map(Number);
+    const expected =
       langOf(route) === "it"
-        ? /Ultimo aggiornamento: (gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre) 20\d\d/
-        : /Last updated: (January|February|March|April|May|June|July|August|September|October|November|December) 20\d\d/;
-    expect(footer).toMatch(pattern);
+        ? `Ultimo aggiornamento: ${monthsIt[month - 1]} ${year}`
+        : `Last updated: ${monthsEn[month - 1]} ${year}`;
+    expect(footer).toContain(expected);
   });
 
   it("does not redirect elsewhere", () => {
