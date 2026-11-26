@@ -1,6 +1,6 @@
 # Launch: Vercel, analytics and domain (done by Tiziano)
 
-One-time steps. Step 0 (importing the project in Vercel) is done: the site is live at
+One-time steps. Steps 0 (importing the project in Vercel) and 1 (Web Analytics) are done: the site is live at
 <https://tizianocappai-website.vercel.app/>.
 The DNS values below are the ones Vercel uses for most projects; if the Domains page in Vercel shows
 different values for your project, use the ones it shows.
@@ -26,12 +26,12 @@ settings need changing by hand.
    - every push to any other branch (and every pull request) gets its own preview URL.
 7. Check **Settings → Build and Deployment → Node.js Version** is `24.x` (matches `engines` in `package.json`).
 
-## 1. Enable Vercel Web Analytics
+## 1. Enable Vercel Web Analytics (done)
 
-Every page already loads `/_vercel/insights/script.js` (cookieless, no banner needed). Vercel only serves
-that file once Analytics is on for the project, so do this **before or right after the first production deploy**:
-until then the script returns 404 and the browser logs a console error (which also costs the Lighthouse
-Best Practices score).
+Analytics is on and `/_vercel/insights/script.js` returns JavaScript. Every page loads it through the
+`<Analytics />` component from `@vercel/analytics` in `src/layouts/Base.astro` (cookieless, no banner needed).
+Vercel only serves that file while Analytics is on for the project: if it is ever turned off, the script returns 404
+and the browser logs a console error (which also costs the Lighthouse Best Practices score).
 
 1. Vercel dashboard → project `tizianocappai-website` → **Analytics** tab → **Enable** (Hobby plan is enough).
 2. Redeploy once (Deployments → latest → ⋯ → **Redeploy**) so the route is active.

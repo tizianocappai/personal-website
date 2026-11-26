@@ -5,9 +5,9 @@ Site: <https://tizianocappai-website.vercel.app/> · CV: <https://tizianocappai-
 Tiziano Cappai's personal site: text and links only, static Astro output, no client-side JavaScript except
 Vercel Web Analytics (cookieless, no banner). Spec: issue #1.
 
-**Status:** live on `*.vercel.app`. Still to do, all listed in [docs/launch.md](docs/launch.md) or an issue:
-attach `tizianocappai.com`, enable Vercel Web Analytics (until then `/_vercel/insights/script.js` returns 404), and
-review the agent-drafted Italian copy (#9). Update this line when one is done.
+**Status:** live on `*.vercel.app`, with Vercel Web Analytics on. Still to do: attach `tizianocappai.com`
+([docs/launch.md](docs/launch.md), step 2) and review the agent-drafted Italian copy (#9). Update this line when one
+is done.
 
 **Licence:** none. All rights reserved: the code is public to read, not to reuse.
 
@@ -31,8 +31,9 @@ npm run og-image # regenerates public/og.png (only after changing name or role; 
 - `src/components/`: page templates shared by all languages.
 - `src/layouts/Base.astro`: the shared HTML shell. From the page's `lang` and `route` key it renders `lang`,
   title, description, canonical URL, `hreflang` alternates (en, it, x-default), favicon, Open Graph and Twitter
-  card meta (one shared image, `public/og.png`), the Vercel Web Analytics script (`/_vercel/insights/script.js`,
-  served by Vercel, the only client-side script) and the footer ("Last updated" with the month in
+  card meta (one shared image, `public/og.png`), Vercel Web Analytics (the `<Analytics />`
+  component from `@vercel/analytics`: an inline module script that loads `/_vercel/insights/script.js`, served by
+  Vercel; the only client-side script) and the footer ("Last updated" with the month in
   `src/data/site.ts`, localized, and the link to the same page in the other language). Pages can add tags to `<head>` with `slot="head"`
   (the homepage uses it for the JSON-LD `Person`). A page without a `route` (only the not-found page) gets
   `noindex` and no canonical, hreflang or language switch.
