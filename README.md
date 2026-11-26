@@ -84,6 +84,8 @@ One-time setup (Vercel import, Web Analytics, `tizianocappai.com` DNS, sitemap s
 [docs/launch.md](docs/launch.md). Until the domain is attached the site lives on `*.vercel.app`, but canonical and
 sitemap URLs already use `https://tizianocappai.com` (Astro `site`).
 
+Day-to-day deploys, rollbacks, content updates and dependency upgrades: [docs/maintenance.md](docs/maintenance.md).
+
 ## Quality pass
 
 Lighthouse mobile and W3C HTML validation results, and the commands to re-run them locally, are in
