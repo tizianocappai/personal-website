@@ -1,0 +1,20 @@
+---
+// Vercel serves this single 404.html for every unknown URL, whatever the language,
+// so the page says it in English and in Italian and links to both homepages.
+// No route key: Base marks it noindex, without canonical or hreflang.
+import Base from "../layouts/Base.astro";
+import { localizedPath } from "../i18n/routes";
+import { ui } from "../i18n/ui";
+
+const en = ui.en.notFound;
+const it = ui.it.notFound;
+---
+
+<Base lang="en" title={`${en.title} · ${it.title}`} description={`${en.message} ${it.message}`}>
+  <h1>{en.title}</h1>
+  <p>{en.message} <a href={localizedPath("en", "home")}>{en.backHome}</a>.</p>
+  <section lang="it">
+    <h2>{it.title}</h2>
+    <p>{it.message} <a href={localizedPath("it", "home")}>{it.backHome}</a>.</p>
+  </section>
+</Base>

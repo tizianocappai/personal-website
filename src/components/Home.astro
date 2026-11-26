@@ -1,0 +1,41 @@
+---
+// Homepage (the index page, "/" and "/it/"), shared by every language.
+import Base from "../layouts/Base.astro";
+import { profile } from "../data/profile";
+import { ui, type Lang } from "../i18n/ui";
+import { absoluteUrl, localizedPath } from "../i18n/routes";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].home;
+const mailto = `mailto:${profile.email}`;
+// JSON-LD Person: lets search engines tie the site, LinkedIn and GitHub to one entity.
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.jobTitle,
+  url: absoluteUrl(localizedPath(lang, "home"), Astro.site),
+  worksFor: { "@type": "Organization", name: profile.employer },
+  address: { "@type": "PostalAddress", addressLocality: profile.city, addressCountry: profile.country },
+  email: mailto,
+  sameAs: [profile.linkedin, profile.github],
+};
+---
+
+<Base lang={lang} route="home" title={t.title} description={t.description}>
+  <script slot="head" type="application/ld+json" is:inline set:html={JSON.stringify(person)} />
+  <h1>{t.title}</h1>
+  <p>{t.intro}</p>
+  <ul>
+    <li><a href={localizedPath(lang, "projects")}>{t.links.projects}</a></li>
+    <li><a href={localizedPath(lang, "career")}>{t.links.career}</a></li>
+    <li><a href={profile.cv}>{t.links.cv}</a></li>
+    <li><a href={profile.linkedin}>{t.links.linkedin}</a></li>
+    <li><a href={profile.github}>{t.links.github}</a></li>
+    <li><a href={mailto}>{t.links.email}</a></li>
+  </ul>
+</Base>

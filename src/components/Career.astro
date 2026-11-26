@@ -1,0 +1,71 @@
+---
+// Career page (the HTML version of the CV), shared by every language. Content lives in src/data/career.ts.
+import Base from "../layouts/Base.astro";
+import { career } from "../data/career";
+import { ui, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].career;
+const content = career[lang];
+---
+
+<Base lang={lang} route="career" title={t.title} description={t.description}>
+  <h1>{t.heading}</h1>
+
+  <h2>{t.sections.summary}</h2>
+  <p>{content.summary}</p>
+
+  <h2>{t.sections.experience}</h2>
+  {
+    content.experience.map((job) => (
+      <section>
+        <h3>{job.role}</h3>
+        <p>
+          {job.company}, {job.location}, {job.dates}
+        </p>
+        <ul>
+          {job.achievements.map((a) => (
+            <li>{a}</li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+
+  <h2>{t.sections.skills}</h2>
+  <ul>
+    {
+      content.skills.map((group) => (
+        <li>
+          {group.category}: {group.items.join(", ")}
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>{t.sections.education}</h2>
+  <ul>
+    {
+      content.education.map((d) => (
+        <li>
+          {d.title}, {d.school}, {d.location}, {d.dates}
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>{t.sections.languages}</h2>
+  <ul>
+    {
+      content.languages.map((l) => (
+        <li>
+          {l.language}: {l.level}
+        </li>
+      ))
+    }
+  </ul>
+</Base>
