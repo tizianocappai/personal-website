@@ -60,11 +60,19 @@ describe.each(pages.map((p) => [p.route, p] as const))("page %s", (_route, page)
   });
 
   // JSON-LD blocks are data, not code. The only code is Vercel Web Analytics (cookieless):
-  // the script Vercel serves from the deployment itself, loaded with defer.
+  // Using @vercel/analytics component which injects a web component and module script.
   it("ships only the Vercel Web Analytics script", () => {
+    // Check for the vercel-analytics web component
+    const analyticsComponent = page.doc.querySelector("vercel-analytics");
+    expect(analyticsComponent).toBeTruthy();
+    
+    // The Analytics component creates a type="module" inline script that loads the external script
     const scripts = page.doc.querySelectorAll("script:not([type='application/ld+json'])");
-    expect(scripts.map((s) => s.getAttribute("src"))).toEqual(["/_vercel/insights/script.js"]);
-    expect(scripts[0].hasAttribute("defer")).toBe(true);
-    expect(scripts[0].text.trim()).toBe("");
+    expect(scripts.length).toBe(1);
+    expect(scripts[0].getAttribute("type")).toBe("module");
+    
+    // Verify the inline script references the Vercel insights script
+    const scriptContent = scripts[0].text;
+    expect(scriptContent).toContain("/_vercel/insights/script.js");
   });
 });

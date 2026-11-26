@@ -8,6 +8,7 @@ import { languages, ui, type Lang } from "../i18n/ui";
 import { absoluteUrl, alternates, localizedPath, type RouteKey } from "../i18n/routes";
 import { profile } from "../data/profile";
 import { siteData } from "../data/site";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
   lang: Lang;
@@ -63,7 +64,7 @@ const lastUpdated = new Intl.DateTimeFormat(ui[lang].locale, { month: "long", ye
     }
     <slot name="head" />
     <!-- Vercel Web Analytics: cookieless, served by Vercel from this deployment. The only client-side script. -->
-    <script is:inline defer src="/_vercel/insights/script.js"></script>
+    <Analytics />
   </head>
   <body>
     <main>
