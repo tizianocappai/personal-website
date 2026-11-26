@@ -21,7 +21,11 @@ describe("Italian homepage", () => {
 
   it("links to the same contacts as the English homepage", () => {
     const hrefs = (route: string) =>
-      page(route).doc.querySelectorAll("main a").map((a) => a.getAttribute("href"));
+      page(route)
+        .doc.querySelectorAll("main a")
+        .map((a) => a.getAttribute("href"))
+        // Links to site pages are localized; contacts and the CV PDF are shared by both languages.
+        .filter((href) => !href?.endsWith("/"));
     expect(hrefs("/it/")).toEqual(hrefs("/"));
   });
 });

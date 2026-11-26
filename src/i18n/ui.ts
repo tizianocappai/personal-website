@@ -29,6 +29,18 @@ export interface UiStrings {
       email: string;
     };
   };
+  career: {
+    title: string;
+    description: string;
+    heading: string;
+    sections: {
+      summary: string;
+      experience: string;
+      skills: string;
+      education: string;
+      languages: string;
+    };
+  };
 }
 
 export const ui: Record<Lang, UiStrings> = {
@@ -50,6 +62,19 @@ export const ui: Record<Lang, UiStrings> = {
         email: "Email",
       },
     },
+    career: {
+      title: "Career: Tiziano Cappai, Senior Frontend Developer",
+      description:
+        "Career of Tiziano Cappai, Senior Frontend Developer at Accenture in Rome: work experience, skills, education and languages.",
+      heading: "Career",
+      sections: {
+        summary: "Summary",
+        experience: "Experience",
+        skills: "Skills",
+        education: "Education",
+        languages: "Languages",
+      },
+    },
   },
   // REVIEW (Tiziano): agent-drafted Italian copy.
   it: {
@@ -68,6 +93,19 @@ export const ui: Record<Lang, UiStrings> = {
         linkedin: "LinkedIn",
         github: "GitHub",
         email: "Email",
+      },
+    },
+    career: {
+      title: "Carriera: Tiziano Cappai, Senior Frontend Developer",
+      description:
+        "Carriera di Tiziano Cappai, Senior Frontend Developer in Accenture a Roma: esperienze di lavoro, competenze, formazione e lingue.",
+      heading: "Carriera",
+      sections: {
+        summary: "Profilo",
+        experience: "Esperienza",
+        skills: "Competenze",
+        education: "Formazione",
+        languages: "Lingue",
       },
     },
   },
