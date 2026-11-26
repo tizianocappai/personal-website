@@ -34,9 +34,12 @@ export function allFiles(): string[] {
   return walk(distDir).map((f) => `/${relative(distDir, f).split(sep).join("/")}`);
 }
 
+// Google Search Console ownership file (public/google<token>.html): a one-line token, not a page of the site.
+const isSearchConsoleToken = (file: string) => /^google[0-9a-f]+\.html$/.test(file.split(sep).pop() ?? "");
+
 export function allPages(): Page[] {
   return walk(distDir)
-    .filter((f) => f.endsWith(".html"))
+    .filter((f) => f.endsWith(".html") && !isSearchConsoleToken(f))
     .map((file) => {
       const html = readFileSync(file, "utf8");
       return { route: toRoute(file), file, html, bytes: Buffer.byteLength(html), doc: parse(html) };

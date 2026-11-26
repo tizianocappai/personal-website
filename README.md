@@ -81,8 +81,8 @@ Vercel deploys every push to `main` to production; every other branch and pull r
 GitHub Actions (`.github/workflows/ci.yml`) runs `npm test` on every push to `main` and every pull request; Vercel
 does not wait for it, so run `npm test` locally before pushing to `main`.
 One-time setup (Vercel import, Web Analytics, `tizianocappai.com` DNS, sitemap submission) is in
-[docs/launch.md](docs/launch.md). Until the domain is attached the site lives on `*.vercel.app`, but canonical and
-sitemap URLs already use `https://tizianocappai.com` (Astro `site`).
+[docs/launch.md](docs/launch.md). The site currently lives on `https://tizianocappai-website.vercel.app`, and canonical
+and sitemap URLs use it (Astro `site` in `astro.config.mjs`, plus `public/robots.txt`); change both when the domain is attached.
 
 Day-to-day deploys, rollbacks, content updates and dependency upgrades: [docs/maintenance.md](docs/maintenance.md).
 

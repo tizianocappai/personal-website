@@ -2,7 +2,7 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://tizianocappai.com",
+  site: "https://tizianocappai-website.vercel.app",
   output: "static",
   trailingSlash: "ignore",
   // English at the root, Italian under /it/. No Accept-Language redirect: the URL you open is the page you get.

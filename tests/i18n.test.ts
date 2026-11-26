@@ -34,7 +34,7 @@ describe("Italian homepage", () => {
   });
 });
 
-const site = "https://tizianocappai.com";
+const site = "https://tizianocappai-website.vercel.app";
 const isNoindex = (p: ReturnType<typeof allPages>[number]) =>
   p.doc.querySelector('meta[name="robots"]')?.getAttribute("content")?.includes("noindex") ?? false;
 // Every page with its own URL; the not-found page is checked separately (tests/not-found.test.ts).

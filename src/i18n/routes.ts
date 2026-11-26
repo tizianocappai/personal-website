@@ -18,7 +18,7 @@ export function localizedPath(lang: Lang, route: RouteKey): string {
   return lang === defaultLang ? path : `/${lang}${path}`;
 }
 
-/** Absolute URL of a site-relative path, e.g. ("/it/", https://tizianocappai.com) -> "https://tizianocappai.com/it/". */
+/** Absolute URL of a site-relative path, e.g. ("/it/", https://tizianocappai-website.vercel.app) -> "https://tizianocappai-website.vercel.app/it/". */
 export function absoluteUrl(path: string, site: URL | undefined): string {
   return new URL(path, site).href;
 }

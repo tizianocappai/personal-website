@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { allFiles, allPages, distDir } from "./site";
 
-const site = "https://tizianocappai.com";
+const site = "https://tizianocappai-website.vercel.app";
 const pages = allPages();
 const files = new Set(allFiles());
 const read = (path: string) => readFileSync(join(distDir, path));
