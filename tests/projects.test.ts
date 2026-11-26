@@ -29,6 +29,14 @@ describe.each(cases)("Projects page ($lang)", ({ lang, home, route, linkText }) 
     expect(hrefs).toContain("https://gennarofondopensione.vercel.app");
   });
 
+  it("links francescaauriemma.it to the live site, without a code link", () => {
+    const article = main
+      .querySelectorAll("section#personal-projects article")
+      .find((a) => a.querySelector("h3")?.text.trim() === "francescaauriemma.it")!;
+    const hrefs = article.querySelectorAll("a").map((a) => a.getAttribute("href"));
+    expect(hrefs).toEqual(["https://www.francescaauriemma.it/"]);
+  });
+
   it("lists six client-work entries by sector, with role and stack", () => {
     const entries = main.querySelectorAll("section#client-work li").map((li) => li.text.trim());
     expect(entries).toHaveLength(6);

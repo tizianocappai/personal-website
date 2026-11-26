@@ -23,7 +23,12 @@ const { personal, clientWork } = projects[lang];
           <h3>{p.name}</h3>
           <p>{p.description}</p>
           <p>
-            <a href={p.repo}>{t.repo}</a> · <a href={p.demo}>{t.demo}</a>
+            {p.repo && (
+              <>
+                <a href={p.repo}>{t.repo}</a> ·{" "}
+              </>
+            )}
+            <a href={p.url}>{t[p.urlKind]}</a>
           </p>
         </article>
       ))

@@ -3,6 +3,7 @@
 //
 // REVIEW (Tiziano): agent-drafted, to review before going live:
 // - the cagr-fund-pension description in both languages (drafted from the project README);
+// - the francescaauriemma.it description in both languages (drafted from the live site; add the stack if wanted);
 // - the stack of each client-work line (the CV gives stacks per role, not per sector);
 // - every Italian string.
 import type { Lang } from "../i18n/ui";
@@ -10,8 +11,11 @@ import type { Lang } from "../i18n/ui";
 export interface PersonalProject {
   name: string;
   description: string;
-  repo: string;
-  demo: string;
+  /** Omitted when the code is not public (e.g. a site built for someone else). */
+  repo?: string;
+  url: string;
+  /** How the link to `url` is labelled: a demo of a personal tool, or a live site. */
+  urlKind: "demo" | "site";
 }
 
 /** One anonymized client engagement: industry sector, Tiziano's role, stack. */
@@ -29,7 +33,16 @@ export interface ProjectsContent {
 const cagrFundPension = {
   name: "cagr-fund-pension",
   repo: "https://github.com/tizianocappai/cagr-fund-pension",
-  demo: "https://gennarofondopensione.vercel.app",
+  url: "https://gennarofondopensione.vercel.app",
+  urlKind: "demo",
+} as const;
+
+// Built by Tiziano for Francesca Auriemma, who is credited publicly in the site's footer.
+// No repo link on purpose.
+const francescaAuriemma = {
+  name: "francescaauriemma.it",
+  url: "https://www.francescaauriemma.it/",
+  urlKind: "site",
 } as const;
 
 // Roles and stacks stay in English in both languages, like job titles and technology names.
@@ -44,6 +57,11 @@ export const projects: Record<Lang, ProjectsContent> = {
         ...cagrFundPension,
         description:
           "A browser-only app for members of Italian pension funds (Fondo Cometa, Fondo Fonte): from the fund portal's transaction export it computes the real annual growth rate (XIRR), compares the fund with TFR net of tax, and runs a 10,000-path Monte Carlo simulation for retirement planning. No data leaves the browser. React, TypeScript, Vite, Recharts.",
+      },
+      {
+        ...francescaAuriemma,
+        description:
+          "The professional website of Francesca Auriemma, a psychologist in Rome: a single page presenting her, her services, her approach and FAQs, with a call to book a first consultation. Designed and built end to end.",
       },
     ],
     clientWork: [
@@ -62,6 +80,11 @@ export const projects: Record<Lang, ProjectsContent> = {
         ...cagrFundPension,
         description:
           "Un'app che funziona interamente nel browser, per chi aderisce a un fondo pensione italiano (Fondo Cometa, Fondo Fonte): dall'export dei movimenti del portale del fondo calcola il rendimento annuo reale (XIRR), confronta il fondo con il TFR al netto delle tasse ed esegue una simulazione Monte Carlo su 10.000 scenari per pianificare la pensione. Nessun dato lascia il browser. React, TypeScript, Vite, Recharts.",
+      },
+      {
+        ...francescaAuriemma,
+        description:
+          "Il sito professionale di Francesca Auriemma, psicologa a Roma: una pagina unica che presenta chi è, i servizi, l'approccio e le domande frequenti, con l'invito a prenotare un primo colloquio. Progettato e realizzato da zero.",
       },
     ],
     clientWork: [

@@ -40,6 +40,7 @@ export interface UiStrings {
     clientWorkNote: string;
     repo: string;
     demo: string;
+    site: string;
   };
   career: {
     title: string;
@@ -83,13 +84,14 @@ export const ui: Record<Lang, UiStrings> = {
     projects: {
       title: "Projects, Tiziano Cappai",
       description:
-        "Projects by Tiziano Cappai, Senior Frontend Developer: a personal pension fund analysis app and client work by industry sector.",
+        "Projects by Tiziano Cappai, Senior Frontend Developer: a pension fund analysis app, a psychologist's website and client work by industry sector.",
       heading: "Projects",
       personalHeading: "Personal projects",
       clientWorkHeading: "Client work",
       clientWorkNote: "By industry sector: client names are under NDA.",
       repo: "Code",
       demo: "Live demo",
+      site: "Website",
     },
     career: {
       title: "Career: Tiziano Cappai, Senior Frontend Developer",
@@ -133,13 +135,14 @@ export const ui: Record<Lang, UiStrings> = {
     projects: {
       title: "Progetti, Tiziano Cappai",
       description:
-        "Progetti di Tiziano Cappai, Senior Frontend Developer: un'app personale per analizzare i fondi pensione e i lavori per clienti, per settore.",
+        "Progetti di Tiziano Cappai, Senior Frontend Developer: un'app per analizzare i fondi pensione, il sito di una psicologa e i lavori per clienti, per settore.",
       heading: "Progetti",
       personalHeading: "Progetti personali",
       clientWorkHeading: "Lavori per clienti",
       clientWorkNote: "Per settore: i nomi dei clienti sono coperti da NDA.",
       repo: "Codice",
       demo: "Demo",
+      site: "Sito web",
     },
     career: {
       title: "Carriera: Tiziano Cappai, Senior Frontend Developer",
