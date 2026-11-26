@@ -1,8 +1,30 @@
-# Launch: analytics and domain (done by Tiziano)
+# Launch: Vercel, analytics and domain (done by Tiziano)
 
-One-time steps after the project is imported in Vercel (see "Deploying on Vercel" in the README).
+One-time steps. Step 0 (importing the project in Vercel) is done: the site is live at
+<https://tizianocappai-website.vercel.app/>.
 The DNS values below are the ones Vercel uses for most projects; if the Domains page in Vercel shows
 different values for your project, use the ones it shows.
+
+## 0. Import the project in Vercel
+
+The repo already contains `vercel.json` (framework Astro, `npm ci`, `npm run build`, output `dist`), so no
+settings need changing by hand.
+
+1. Push the `main` branch to GitHub (`tizianocappai/personal-website`).
+2. Sign in at <https://vercel.com> with your GitHub account (or create an account, Hobby plan is enough).
+3. Go to <https://vercel.com/new>, under "Import Git Repository" click **Adjust GitHub App Permissions** if the
+   repo is not listed, grant the Vercel app access to `tizianocappai/personal-website`, then click **Import** next to it.
+4. On the "Configure Project" screen:
+   - Project Name: `tizianocappai-website` (gives `https://tizianocappai-website.vercel.app`).
+   - Framework Preset: **Astro** (auto-detected).
+   - Root Directory: `./`.
+   - Build and Output Settings: leave the defaults; `vercel.json` sets them.
+   - Environment Variables: none.
+5. Click **Deploy**. When it finishes, open the `*.vercel.app` URL shown on the success screen.
+6. Check **Settings → Git**: Production Branch must be `main`. From now on:
+   - every push to `main` deploys to production;
+   - every push to any other branch (and every pull request) gets its own preview URL.
+7. Check **Settings → Build and Deployment → Node.js Version** is `24.x` (matches `engines` in `package.json`).
 
 ## 1. Enable Vercel Web Analytics
 
@@ -11,9 +33,9 @@ that file once Analytics is on for the project, so do this **before or right aft
 until then the script returns 404 and the browser logs a console error (which also costs the Lighthouse
 Best Practices score).
 
-1. Vercel dashboard → project `tizianocappai` → **Analytics** tab → **Enable** (Hobby plan is enough).
+1. Vercel dashboard → project `tizianocappai-website` → **Analytics** tab → **Enable** (Hobby plan is enough).
 2. Redeploy once (Deployments → latest → ⋯ → **Redeploy**) so the route is active.
-3. Check: open `https://<project>.vercel.app/_vercel/insights/script.js`; it must return JavaScript, not 404.
+3. Check: open `https://tizianocappai-website.vercel.app/_vercel/insights/script.js`; it must return JavaScript, not 404.
    Visit a page, then after a minute the Analytics tab shows the visit, with the referrer (where people found you).
 
 ## 2. Attach tizianocappai.com
