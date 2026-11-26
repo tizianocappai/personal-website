@@ -1,9 +1,15 @@
 # personal-website
 
+Site: <https://tizianocappai-website.vercel.app/> · CV: <https://tizianocappai-website.vercel.app/tiziano-cappai-cv.pdf>
+
 Tiziano Cappai's personal site: text and links only, static Astro output, no client-side JavaScript except
-Vercel Web Analytics (cookieless, no banner).
-Live at <https://tizianocappai-website.vercel.app/> (`tizianocappai.com` once the domain is attached).
-Spec: issue #1.
+Vercel Web Analytics (cookieless, no banner). Spec: issue #1.
+
+**Status:** live on `*.vercel.app`. Still to do, all listed in [docs/launch.md](docs/launch.md) or an issue:
+attach `tizianocappai.com`, enable Vercel Web Analytics (until then `/_vercel/insights/script.js` returns 404), and
+review the agent-drafted Italian copy (#9). Update this line when one is done.
+
+**Licence:** none. All rights reserved: the code is public to read, not to reuse.
 
 ## Commands
 
@@ -67,17 +73,8 @@ automatically, and fail if one language is missing.
 
 ## Italian copy to review
 
-All Italian text was drafted by an agent and must be reviewed by Tiziano before going live. Every block is
-marked `REVIEW` in the source; list them with:
-
-```sh
-grep -rn REVIEW src
-```
-
-They are in `src/i18n/ui.ts` (UI strings), `src/data/career.ts` (the whole `it` block) and `src/data/projects.ts`
-(the cagr-fund-pension description, drafted from the project README, and the stack on each client-work line,
-taken from the matching CV role because the CV gives stacks per role, not per sector). Job titles and technology
-names stay in English on purpose.
+The Italian text was drafted by an agent and is marked `REVIEW` in the source (`grep -rn REVIEW src`). The full
+list of strings to check, and what "done" means, is in issue #9.
 
 ## Deploying
 

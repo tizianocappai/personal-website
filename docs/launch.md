@@ -96,4 +96,4 @@ and a second copy would split search ranking.
   **Sitemaps** → submit `https://tizianocappai.com/sitemap.xml`.
 - Re-run the quality pass against production (see `docs/quality-pass.md`): Lighthouse on the real domain
   includes the real analytics script and HTTPS.
-- Review and approve the Italian copy (README, "Italian copy to review") before announcing the site.
+- Review and approve the Italian copy (issue #9) before announcing the site.

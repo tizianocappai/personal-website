@@ -2,7 +2,7 @@
 // English is the default locale (served at the root); Italian lives under /it/.
 //
 // REVIEW (Tiziano): every Italian string in this file was drafted by an agent and must be reviewed
-// before going live. Search for "REVIEW" here and in README.md ("Italian copy to review").
+// (issue #9). Search for "REVIEW" here, in src/data/career.ts and in src/data/projects.ts.
 // Job titles and technology names stay in English on purpose.
 export const languages = ["en", "it"] as const;
 export type Lang = (typeof languages)[number];
