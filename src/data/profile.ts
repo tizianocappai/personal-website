@@ -4,4 +4,6 @@ export const profile = {
   email: "tiziano.cappai@icloud.com",
   linkedin: "https://www.linkedin.com/in/tiziano-cappai-1b5271153",
   github: "https://github.com/tizianocappai",
+  /** The single English CV PDF (public/tiziano-cappai-cv.pdf), linked from every language. No phone number in it. */
+  cv: "/tiziano-cappai-cv.pdf",
 } as const;

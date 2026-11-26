@@ -7,6 +7,7 @@ import { defaultLang, type Lang } from "./ui";
 export const routes = {
   home: "/",
   projects: "/projects/",
+  career: "/career/",
 } as const satisfies Record<string, `/${string}`>;
 
 export type RouteKey = keyof typeof routes;

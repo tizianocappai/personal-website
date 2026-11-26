@@ -24,7 +24,10 @@ npm test         # builds the site once, then checks every generated page
   with the build month, localized, and the link to the same page in the other language).
 - `src/i18n/routes.ts`: route keys and their paths; `localizedPath(lang, key)` gives the URL in a language.
 - `src/i18n/ui.ts`: UI strings per language, typed.
-- `src/data/`: content kept separate from markup (`profile.ts` holds the contact links). Never add a phone number.
+- `src/data/`: content kept separate from markup (`profile.ts` holds the contact links and the CV URL, `career.ts`
+  the Career page in both languages). Never add a phone number.
+- `public/tiziano-cappai-cv.pdf`: the single English CV, served at `/tiziano-cappai-cv.pdf` and linked from both
+  homepages. To update it, replace the file keeping the name, after checking it has no phone number.
 - `src/styles/global.css`: the whole stylesheet, inlined into every page.
 - `tests/`: Vitest suite. `build.global-setup.ts` runs `astro build` once; the tests parse the HTML in `dist/` and
   check what a visitor or search engine receives (title, description, `lang`, page under 15 KB, no phone number,
@@ -52,6 +55,10 @@ in the source). Job titles and technology names stay in English on purpose. Curr
 | Homepage links | Projects · Career · CV (PDF) | Progetti · Carriera · CV (PDF, in inglese) |
 | Footer | Last updated | Ultimo aggiornamento |
 | Language switch label | English | Italiano |
+| Career title / heading | Career: Tiziano Cappai, Senior Frontend Developer / Career | Carriera: Tiziano Cappai, Senior Frontend Developer / Carriera |
+| Career description | Career of Tiziano Cappai, Senior Frontend Developer at Accenture in Rome: work experience, skills, education and languages. | Carriera di Tiziano Cappai, Senior Frontend Developer in Accenture a Roma: esperienze di lavoro, competenze, formazione e lingue. |
+| Career sections | Summary · Experience · Skills · Education · Languages | Profilo · Esperienza · Competenze · Formazione · Lingue |
+| Career content | summary, achievements, skill categories, degrees, languages | whole `it` block in `src/data/career.ts` (translated summary and achievements, "oggi" for Present, degree titles "Laurea triennale in Economia e gestione aziendale" and "Diploma di perito in Informatica") |
 
 Projects page (`src/i18n/ui.ts` and `src/data/projects.ts`):
 
@@ -69,7 +76,7 @@ Also to review in `src/data/projects.ts`, in both languages: the cagr-fund-pensi
 agent from the project README) and the stack on each client-work line (the CV gives stacks per role, not per
 sector, so each line uses the stack of the matching CV role).
 
-Pages added later (Career, not-found) list their Italian strings here too.
+Pages added later (not-found) list their Italian strings here too.
 
 ## Deploying on Vercel (one-time setup, done by Tiziano)
 
