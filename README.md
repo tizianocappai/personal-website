@@ -1,8 +1,15 @@
 # personal-website
 
+Site: <https://tizianocappai-website.vercel.app/> · CV: <https://tizianocappai-website.vercel.app/tiziano-cappai-cv.pdf>
+
 Tiziano Cappai's personal site: text and links only, static Astro output, no client-side JavaScript except
-Vercel Web Analytics (cookieless, no banner).
-Spec: issue #1.
+Vercel Web Analytics (cookieless, no banner). Spec: issue #1.
+
+**Status:** live on `*.vercel.app`. Still to do, all listed in [docs/launch.md](docs/launch.md) or an issue:
+attach `tizianocappai.com`, enable Vercel Web Analytics (until then `/_vercel/insights/script.js` returns 404), and
+review the agent-drafted Italian copy (#9). Update this line when one is done.
+
+**Licence:** none. All rights reserved: the code is public to read, not to reuse.
 
 ## Commands
 
@@ -12,6 +19,7 @@ Requires Node 24 and npm.
 npm install
 npm run dev      # local dev server at http://localhost:4321
 npm run build    # static site in dist/
+npm run preview  # serves dist/ locally (runs in the background; stop it with `npx astro preview stop`)
 npm test         # builds the site once, then checks every generated page
 npm run og-image # regenerates public/og.png (only after changing name or role; commit the PNG)
 ```
@@ -65,65 +73,15 @@ automatically, and fail if one language is missing.
 
 ## Italian copy to review
 
-All Italian text was drafted by an agent and must be reviewed by Tiziano before going live (marked `REVIEW`
-in the source). Job titles and technology names stay in English on purpose. Current strings, in `src/i18n/ui.ts`:
+The Italian text was drafted by an agent and is marked `REVIEW` in the source (`grep -rn REVIEW src`). The full
+list of strings to check, and what "done" means, is in issue #9.
 
-| Where | English | Italian (draft) |
-| --- | --- | --- |
-| Homepage description | Tiziano Cappai, Senior Frontend Developer in Rome, Italy: frontend architecture, React/Angular/Vue, and AI-assisted engineering. | Tiziano Cappai, Senior Frontend Developer a Roma: architettura frontend, React/Angular/Vue e sviluppo software assistito dall'AI. |
-| Homepage intro | Frontend architecture, React/Angular/Vue, and AI-assisted engineering. Rome, Italy. | Architettura frontend, React/Angular/Vue e sviluppo software assistito dall'AI. Roma. |
-| Homepage links | Projects · Career · CV (PDF) | Progetti · Carriera · CV (PDF, in inglese) |
-| Footer | Last updated | Ultimo aggiornamento |
-| Language switch label | English | Italiano |
-| Not-found page title | Page not found | Pagina non trovata |
-| Not-found page message | There is no page at this address. | Non c'è nessuna pagina a questo indirizzo. |
-| Not-found page link | Go to the homepage | Vai alla homepage |
-| Career title / heading | Career: Tiziano Cappai, Senior Frontend Developer / Career | Carriera: Tiziano Cappai, Senior Frontend Developer / Carriera |
-| Career description | Career of Tiziano Cappai, Senior Frontend Developer at Accenture in Rome: work experience, skills, education and languages. | Carriera di Tiziano Cappai, Senior Frontend Developer in Accenture a Roma: esperienze di lavoro, competenze, formazione e lingue. |
-| Career sections | Summary · Experience · Skills · Education · Languages | Profilo · Esperienza · Competenze · Formazione · Lingue |
-| Career content | summary, achievements, skill categories, degrees, languages | whole `it` block in `src/data/career.ts` (translated summary and achievements, "oggi" for Present, degree titles "Laurea triennale in Economia e gestione aziendale" and "Diploma di perito in Informatica") |
+## Deploying
 
-Projects page (`src/i18n/ui.ts` and `src/data/projects.ts`):
-
-| Where | English | Italian (draft) |
-| --- | --- | --- |
-| Projects title | Projects, Tiziano Cappai | Progetti, Tiziano Cappai |
-| Projects description | Projects by Tiziano Cappai, Senior Frontend Developer: a personal pension fund analysis app and client work by industry sector. | Progetti di Tiziano Cappai, Senior Frontend Developer: un'app personale per analizzare i fondi pensione e i lavori per clienti, per settore. |
-| Projects headings | Projects · Personal projects · Client work | Progetti · Progetti personali · Lavori per clienti |
-| Client work note | By industry sector: client names are under NDA. | Per settore: i nomi dei clienti sono coperti da NDA. |
-| Project links | Code · Live demo | Codice · Demo |
-| Sectors | National security · Luxury e-commerce · Public sector · Automotive · Fashion · Online betting, at K2 Play | Sicurezza nazionale · E-commerce di lusso · Pubblica amministrazione · Automotive · Moda · Scommesse online, presso K2 Play |
-| cagr-fund-pension description | see `src/data/projects.ts` | see `src/data/projects.ts` |
-
-Also to review in `src/data/projects.ts`, in both languages: the cagr-fund-pension description (drafted by an
-agent from the project README) and the stack on each client-work line (the CV gives stacks per role, not per
-sector, so each line uses the stack of the matching CV role).
-
-## Deploying on Vercel (one-time setup, done by Tiziano)
-
-The repo already contains `vercel.json` (framework Astro, `npm ci`, `npm run build`, output `dist`), so no
-settings need changing by hand.
-
-1. Push the `main` branch to GitHub (`tizianocappai/personal-website`).
-2. Sign in at <https://vercel.com> with your GitHub account (or create an account, Hobby plan is enough).
-3. Go to <https://vercel.com/new>, under "Import Git Repository" click **Adjust GitHub App Permissions** if the
-   repo is not listed, grant the Vercel app access to `tizianocappai/personal-website`, then click **Import** next to it.
-4. On the "Configure Project" screen:
-   - Project Name: `tizianocappai` (this gives the URL `https://tizianocappai.vercel.app` if it is free;
-     any free name works).
-   - Framework Preset: **Astro** (auto-detected).
-   - Root Directory: `./`.
-   - Build and Output Settings: leave the defaults; `vercel.json` sets them.
-   - Environment Variables: none.
-5. Click **Deploy**. When it finishes, open the `*.vercel.app` URL shown on the success screen.
-6. Check **Settings → Git**: Production Branch must be `main`. From now on:
-   - every push to `main` deploys to production;
-   - every push to any other branch (and every pull request) gets its own preview URL.
-7. Check **Settings → Build and Deployment → Node.js Version** is `24.x` (matches `engines` in `package.json`).
-
-Then follow [docs/launch.md](docs/launch.md): enable Vercel Web Analytics, attach `tizianocappai.com` (exact DNS
-records), optionally redirect `tizianocappai.it`, and submit the sitemap. Until the domain is attached the site lives
-on `*.vercel.app`; canonical and sitemap URLs already use `https://tizianocappai.com` (Astro `site`).
+Vercel deploys every push to `main` to production; every other branch and pull request gets its own preview URL.
+One-time setup (Vercel import, Web Analytics, `tizianocappai.com` DNS, sitemap submission) is in
+[docs/launch.md](docs/launch.md). Until the domain is attached the site lives on `*.vercel.app`, but canonical and
+sitemap URLs already use `https://tizianocappai.com` (Astro `site`).
 
 ## Quality pass
 
