@@ -13,7 +13,7 @@ const { lang } = Astro.props;
 const t = ui[lang].home;
 ---
 
-<Base lang={lang} title={t.title} description={t.description}>
+<Base lang={lang} route="home" title={t.title} description={t.description}>
   <h1>{t.title}</h1>
   <p>{t.intro}</p>
   <ul>

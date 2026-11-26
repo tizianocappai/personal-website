@@ -16,15 +16,44 @@ npm test         # builds the site once, then checks every generated page
 
 ## How it is organised
 
-- `src/pages/`: one file per route. English lives at the root.
+- `src/pages/`: one file per route. English lives at the root, Italian under `src/pages/it/` (served at `/it/`).
+  No redirect based on the browser language: the URL you open is the page you get.
 - `src/components/`: page templates shared by all languages.
-- `src/layouts/Base.astro`: the shared HTML shell (head, `lang`, main landmark).
+- `src/layouts/Base.astro`: the shared HTML shell. From the page's `lang` and `route` key it renders `lang`,
+  title, description, canonical URL, `hreflang` alternates (en, it, x-default) and the footer ("Last updated"
+  with the build month, localized, and the link to the same page in the other language).
+- `src/i18n/routes.ts`: route keys and their paths; `localizedPath(lang, key)` gives the URL in a language.
 - `src/i18n/ui.ts`: UI strings per language, typed.
 - `src/data/`: content kept separate from markup (`profile.ts` holds the contact links). Never add a phone number.
 - `src/styles/global.css`: the whole stylesheet, inlined into every page.
 - `tests/`: Vitest suite. `build.global-setup.ts` runs `astro build` once; the tests parse the HTML in `dist/` and
   check what a visitor or search engine receives (title, description, `lang`, page under 15 KB, no phone number,
-  no client-side script, stylesheet rules, homepage content).
+  no client-side script, stylesheet rules, homepage content, canonical/hreflang and the language switch).
+
+### Adding a page
+
+1. Add a route key to `routes` in `src/i18n/routes.ts`, e.g. `career: "/career/"`.
+2. Add its strings for every language in `src/i18n/ui.ts` (the type forces both).
+3. Write one shared template in `src/components/` that renders `<Base lang={lang} route="career" title=… description=…>`.
+4. Create `src/pages/career.astro` and `src/pages/it/career.astro`, each rendering the template with its `lang`.
+
+The tests then check its canonical, hreflang and language-switch link automatically, and fail if one language
+is missing.
+
+## Italian copy to review
+
+All Italian text was drafted by an agent and must be reviewed by Tiziano before going live (marked `REVIEW`
+in the source). Job titles and technology names stay in English on purpose. Current strings, in `src/i18n/ui.ts`:
+
+| Where | English | Italian (draft) |
+| --- | --- | --- |
+| Homepage description | Tiziano Cappai, Senior Frontend Developer in Rome, Italy: frontend architecture, React/Angular/Vue, and AI-assisted engineering. | Tiziano Cappai, Senior Frontend Developer a Roma: architettura frontend, React/Angular/Vue e sviluppo software assistito dall'AI. |
+| Homepage intro | Frontend architecture, React/Angular/Vue, and AI-assisted engineering. Rome, Italy. | Architettura frontend, React/Angular/Vue e sviluppo software assistito dall'AI. Roma. |
+| Homepage links | Projects · Career · CV (PDF) | Progetti · Carriera · CV (PDF, in inglese) |
+| Footer | Last updated | Ultimo aggiornamento |
+| Language switch label | English | Italiano |
+
+Pages added later (Career, Projects, not-found) list their Italian strings here too.
 
 ## Deploying on Vercel (one-time setup, done by Tiziano)
 
