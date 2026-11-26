@@ -3,7 +3,7 @@
 Site: <https://tizianocappai-website.vercel.app/> · CV: <https://tizianocappai-website.vercel.app/tiziano-cappai-cv.pdf>
 
 Tiziano Cappai's personal site: text and links only, static Astro output, no client-side JavaScript except
-Vercel Web Analytics (cookieless, no banner). Spec: issue #1.
+Vercel Web Analytics (cookieless, no banner).
 
 **Status:** live on `*.vercel.app`, with Vercel Web Analytics on. Still to do: attach `tizianocappai.com`
 ([docs/launch.md](docs/launch.md), step 2) and review the agent-drafted Italian copy (#9). Update this line when one
